@@ -22,15 +22,18 @@ public class Bird : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        GetComponent<LineRenderer>().SetPosition(1,_initialPosition);
+        GetComponent<LineRenderer>().SetPosition(0,transform.position);
+
         if(_birdWasLaunched &&
             GetComponent<Rigidbody2D>().velocity.magnitude <= 0.1)
             {
                 _timeSittingAround += Time.deltaTime;
             }
-       if (transform.position.y >  15 || 
-           transform.position.y < -15 ||
-           transform.position.x >  15 ||
-           transform.position.x < -15 ||
+       if (transform.position.y >  25 || 
+           transform.position.y < -25 ||
+           transform.position.x >  25 ||
+           transform.position.x < -25 ||
            _timeSittingAround > 3)
        {    
            string currentScenceName = SceneManager.GetActiveScene().name;
@@ -41,7 +44,8 @@ public class Bird : MonoBehaviour
 
     private void OnMouseDown() 
     {
-        
+        GetComponent<LineRenderer>().enabled = true;
+
     }
     private void OnMouseUp()
     {
@@ -49,6 +53,7 @@ public class Bird : MonoBehaviour
      GetComponent<Rigidbody2D>().AddForce(directionToInitalPosition * _launchPower);  
      GetComponent<Rigidbody2D>().gravityScale = 1; 
      _birdWasLaunched = true;
+     GetComponent<LineRenderer>().enabled = false;
     }
     
     private void OnMouseDrag() 

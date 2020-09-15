@@ -4,15 +4,25 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+   private void OnCollisionExit2D(Collision2D other) 
+   {
+       Bird bird = other.collider.GetComponent<Bird>();
+       if (bird != null)
+       {
+           Destroy(gameObject);
+           return;
+       }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+       Enemy enemy = other.collider.GetComponent<Enemy>();
+       if (enemy != null)
+       {
+           return;
+       }
+
+       if(other.contacts[0].normal.y < -0.5)
+       {
+           Destroy(gameObject);
+       }
+       
+   }
 }
