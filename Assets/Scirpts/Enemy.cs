@@ -19,10 +19,15 @@ public class Enemy : MonoBehaviour
            return;
        }
 
-       if(other.contacts[0].normal.y < -0.5)
+       if (other.GetContact(0).collider.GetComponent<Bird>())
        {
            Destroy(gameObject);
        }
+
+      // if(other.contacts[0].normal.y < -0.5)
+     //  {
+        //   Destroy(gameObject);
+      // }
        
    }
 }
