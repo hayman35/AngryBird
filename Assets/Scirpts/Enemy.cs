@@ -4,30 +4,23 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-   private void OnCollisionExit2D(Collision2D other) 
+    [SerializeField] private GameObject _cloudParticlePrefab;
+   private void OnCollisionEnter2D(Collision2D coll) 
    {
-       Bird bird = other.collider.GetComponent<Bird>();
-       if (bird != null)
+    
+       if (coll.gameObject.name == "bird")
        {
+           
            Destroy(gameObject);
-           return;
+           Instantiate(_cloudParticlePrefab,transform.position,Quaternion.identity);
        }
 
-       Enemy enemy = other.collider.GetComponent<Enemy>();
-       if (enemy != null)
+        if (coll.gameObject.name == "box")
        {
-           return;
-       }
-
-       if (other.GetContact(0).collider.GetComponent<Bird>())
-       {
+           
            Destroy(gameObject);
+           Instantiate(_cloudParticlePrefab,transform.position,Quaternion.identity);
        }
-
-      // if(other.contacts[0].normal.y < -0.5)
-     //  {
-        //   Destroy(gameObject);
-      // }
        
    }
 }
